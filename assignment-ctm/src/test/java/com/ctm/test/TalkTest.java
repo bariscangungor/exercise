@@ -6,8 +6,8 @@ package com.ctm.test;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.ctm.model.Talk;
-import com.ctm.type.TalkType;
+import com.ctm.model.impl.Talk;
+import com.ctm.type.DurationType;
 
 /**
  * @author bgungor
@@ -17,21 +17,21 @@ public class TalkTest {
 
 	@Test
 	public void testGetDurationForPrintOut() {
-		Talk talk = new Talk("test1", TalkType.LIGTNING, 5);
+		Talk talk = new Talk("test1", DurationType.LIGTNING, 5);
 		Assert.assertEquals("TalkType print out version should be correct!",
-				TalkType.LIGTNING.value(), talk.getDurationForPrintOut());
+				DurationType.LIGTNING.value(), talk.getDurationForPrintOut());
 	}
 
-	@Test
+	@Test 
 	public void testFindTalkType() {
-		TalkType type = TalkType.findTalkType("test 70min");
+		DurationType type = DurationType.findTalkType("test 70min");
 		Assert.assertEquals(
 				"The talk title ends with 'min' should be set as MINUTE! ",
-				TalkType.MINUTES, type);
+				DurationType.MINUTES, type);
 
-		type = TalkType.findTalkType("test lightning");
+		type = DurationType.findTalkType("test lightning");
 		Assert.assertEquals(
 				"The talk title ends with 'lightning' should be set as LIGHTNING! ",
-				TalkType.LIGTNING, type);
+				DurationType.LIGTNING, type);
 	}
 }

@@ -1,57 +1,56 @@
-package com.ctm.model;
+package com.ctm.model.impl;
 
+import static com.ctm.constants.CTMConstants.AFTER;
+import static com.ctm.constants.CTMConstants.BEFORE;
+import static com.ctm.constants.CTMConstants.EQUAL;
+
+import com.ctm.model.Plannable;
 import com.ctm.type.SessionType;
-import com.ctm.type.TalkType;
-
-import static com.ctm.constants.CTMConstants.*;
+import com.ctm.type.DurationType;
 
 /**
  * @author bgungor
  *
  */
-public class Talk implements Comparable<Talk> {
-
-	private String title;
-
-	private TalkType talkType;
-	private SessionType sessionType;
-
-	private int duration;
+public class Talk implements Plannable {
 
 	private boolean planned = false;
 
-	public Talk() {
-	}
+	private DurationType durationType;
+	private SessionType sessionType;
+
+	private String title;
+	
+	private int duration;
 
 	/**
 	 * @param title
 	 * @param talkType
 	 */
-	public Talk(String title, TalkType talkType, int duration) {
+	public Talk(String title, DurationType talkType, int duration) {
 		super();
 		this.title = title;
-		this.talkType = talkType;
+		this.durationType = talkType;
 		this.duration = duration;
 	}
 
 	public String getDurationForPrintOut() {
-		return TalkType.LIGTNING.equals(this.talkType) ? this.talkType.value()
-				: this.duration + TalkType.MINUTES.value();
+		return DurationType.LIGTNING.equals(this.durationType) ? this.durationType.value()
+				: this.duration + DurationType.MINUTES.value();
+	} 
+	
+	/**
+	 * @return the durationType
+	 */
+	public DurationType getDurationType() {
+		return durationType;
 	}
 
 	/**
-	 * @return the talkType
+	 * @param durationType the durationType to set
 	 */
-	public TalkType getTalkType() {
-		return talkType;
-	}
-
-	/**
-	 * @param talkType
-	 *            the talkType to set
-	 */
-	public void setTalkType(TalkType talkType) {
-		this.talkType = talkType;
+	public void setDurationType(DurationType durationType) {
+		this.durationType = durationType;
 	}
 
 	/**
@@ -121,7 +120,7 @@ public class Talk implements Comparable<Talk> {
 	 */
 	@Override
 	public String toString() {
-		return "Talk [title=" + title + ", talkType=" + talkType
+		return "Talk [title=" + title + ", talkType=" + durationType
 				+ ", sessionType=" + sessionType + ", duration=" + duration
 				+ ", planned=" + planned + "]";
 	}
@@ -132,10 +131,10 @@ public class Talk implements Comparable<Talk> {
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
-	public int compareTo(Talk t) {
-		if (this.duration == t.duration) {
+	public int compareTo(Plannable t) {
+		if (this.duration == t.getDuration()) {
 			return EQUAL;
-		} else if (this.duration < t.duration) {
+		} else if (this.duration < t.getDuration()) {
 			return BEFORE;
 		} else {
 			return AFTER;
@@ -178,5 +177,5 @@ public class Talk implements Comparable<Talk> {
 		} else if (!title.equals(other.title))
 			return false;
 		return true;
-	}
+	} 
 }

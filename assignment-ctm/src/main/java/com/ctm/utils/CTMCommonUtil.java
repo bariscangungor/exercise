@@ -18,8 +18,8 @@ import com.ctm.exceptions.CTMRuntimeException;
 public class CTMCommonUtil {
 
 	public static BufferedReader getFileReader(String resource)	throws CTMRuntimeException {
-		FileReader fileReader = null;
-		try { 
+		FileReader fileReader;
+		try {  
 			URL url = CTMCommonUtil.class.getClass().getResource(resource);
 
 			if (url == null) {

@@ -3,6 +3,9 @@
  */
 package com.ctm.test;
 
+import java.io.BufferedReader; 
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.ctm.exceptions.CTMRuntimeException;
@@ -13,19 +16,22 @@ import com.ctm.utils.CTMCommonUtil;
  *
  */
 public class CTMCommonUtilTest {
-
-	@Test(expected=CTMRuntimeException.class)
-	public void testGetFileReaderForNPEError() throws CTMRuntimeException {
-		CTMCommonUtil.getFileReader(null);
-	}
 	
 	@Test
 	public void testGetFileReaderForSuccess() throws CTMRuntimeException {
-		CTMCommonUtil.getFileReader("/input-test.txt");
+		BufferedReader fileReader = CTMCommonUtil.getFileReader("/input-test.txt");
+		Assert.assertNotNull(fileReader);
 	}
 
 	@Test(expected=CTMRuntimeException.class)
 	public void testGetFileReaderForWrongResourceError() throws CTMRuntimeException {
-		CTMCommonUtil.getFileReader("/input-testttt.txt");
+		BufferedReader fileReader = CTMCommonUtil.getFileReader("/input-testttt.txt");
+		Assert.assertNull(fileReader);
+	}
+	 
+	@Test(expected=CTMRuntimeException.class)
+	public void testGetFileReaderForNPEError() throws CTMRuntimeException {
+		BufferedReader fileReader = CTMCommonUtil.getFileReader(null);
+		Assert.assertNull(fileReader);
 	}
 }

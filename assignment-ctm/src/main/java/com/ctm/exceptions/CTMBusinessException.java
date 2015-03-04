@@ -24,12 +24,5 @@ public class CTMBusinessException extends CTMGenericException {
 	 */
 	public String getErrorCode() {
 		return errorCode;
-	}
-
-	/**
-	 * @param errorCode the errorCode to set
-	 */
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
-	}
+	} 
 }
